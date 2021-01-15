@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='flex-col'>
+
+  <ul class='mb50 flex-center animate__animated animate__fadeInUp'>
+    {% if movie %}
+    {% if movie.is_nominee == True %}
+    <li class='flex wid95'>
+      <div class='card-holder'>
+        <div class='flip-card' data-card-pk={{movie.pk}}>
+          <div class='flip-card-inner'>
+            <div class='flip-card-front'>
+              <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
+            </div>
+            <div class="flip-card-back">
+              {{ movie.title }}
+            </div>
+          </div>
+        </div>
+        <div class='action-bar flex jc-sa'>
+          <div class='flex'>
+            <p>Nominee</p><i class='fa-trophy fas'></i>
+          </div>
+          <div>
+            <i class='fa-minus-circle fas'></i></div>
+        </div>
+
+      </div>
+      <div class="flex">
+        <div class="summary-box">{{ movie.summary }}</div>
+      </div>
+      <div class='flex movie-trailer''>
+        
+        <iframe width="626" height="320" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+    
+    </li>
+    {% endif %}
+    {% endif %}
+  </ul>
+  <ul class='mb50 flex-center animate__animated animate__fadeInUp'>
+    {% if movie %}
+    {% if movie.is_nominee == False %}
+    <li class='flex wid95'>
+      <div class='card-holder'>
+        <div class='flip-card' data-card-pk={{movie.pk}}>
+          <div class='flip-card-inner'>
+            <div class='flip-card-front'>
+              <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
+            </div>
+            <div class="flip-card-back">
+              {{ movie.title }}
+            </div>
+          </div>
+        </div>
+        <div class='action-bar flex jc-sa'>
+          <div class='flex'>
+            <p>Nominate</p><i class='fa-star far'></i>
+          </div>
+          <div>
+            <i class='fa-trash-alt fas'></i></div>
+        </div>
+
+      </div>
+      <div class="flex">
+        <div class="summary-box">{{ movie.summary }}</div>
+      </div>
+      <div class='flex movie-trailer'>
+        
+        <iframe width="626" height="320" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+    
+    </li>
+    {% endif %}
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Awards</title>
+  <link rel="stylesheet" href="{% static 'css/styles-generic.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles-project.css' %}">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Acme&family=Dosis:wght@200;300;400;500;600;700;800&family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Indie+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,800;1,100&display=swap" rel="stylesheet">
+  <link  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,800;1,100&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/846acebbe7.js" crossorigin="anonymous"></script>
+  <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+
+<body>
+
+
+  <div class='header flex-col-center'>
+    <h1><a class="header-nav" href="{% url 'home' %}">SHOPIFY MOVIE AWARDS<i style='padding-left: 10px; font-size: 90px; color: rgba(249, 249, 249, 0.918);' class='fa-trophy fas'></i></a></h1>
+    <!-- <img style='width: 100px;' src="{% static 'images/trophy-transparent.png' %}"> -->
+  </div>
+
+
+  <div class = 'content-block flex-col'>
+    {% block content %}
+    {% endblock %}
+  </div>
+  <div class='pb50 pl50 flex-col footer'>
+    <div class='flex mt30'>
+      <div><a class="button-function" href="/">Login</a></div>
+      <div><a class="button-function" href="/accounts/logout/">Logout</a></div>
+    </div>
+    <div class='mt10 fs20' >Logged in as {{ request.user }}.</div>
+  </div>
+</body>
+</html>
