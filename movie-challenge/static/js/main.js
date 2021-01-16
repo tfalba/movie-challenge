@@ -1,12 +1,9 @@
-console.log("Hello- I'm here")
-
 function getCookie (name) {
   let cookieValue = null
   if (document.cookie && document.cookie !== '') {
     const cookies = document.cookie.split(';')
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim()
-      // Does this cookie string begin with the name we want?
       if (cookie.substring(0, name.length + 1) === (name + '=')) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
         break;
@@ -16,36 +13,13 @@ function getCookie (name) {
   return cookieValue
 }
 const csrftoken = getCookie('csrftoken')
-
-// const url = 'http://localhost:3000/movies'
 const searchForm = document.querySelector('#movie-form')
 const posterPrefix = 'https://image.tmdb.org/t/p/w200'
 const dbPrefix = 'https://api.themoviedb.org/3/search/movie?api_key=cdea2b0b411e1e124dcdfb6985b46497&query='
 
 const movieDisplay = document.querySelector('#display')
 
-// const movieDisplayA = document.querySelector('.display-a')
-// const movieDisplayB = document.querySelector('.display-b')
-// const toWatchTab = document.querySelector('#to-watch-tab')
-// const watchedTab = document.querySelector('#watched-tab')
-
-searchForm.addEventListener('submit', function (event) {
-  event.preventDefault()
-  const searchTerm = document.getElementById('movie-search').value
-  console.log(searchTerm)
-  searchMovies(searchTerm)
-})
-
-movieDisplay.addEventListener('click', function (event) {
-  if (event.target.classList.contains('save')) {
-    console.log('I clicked save')
-    createMovie(event.target.parentElement)
-    event.target.parentElement.parentElement.classList.add('hide-me')
-  }
-})
-
 function searchMovies (searchTerm) {
-  console.log('running searchMovies')
   movieDisplay.innerHTML = ''
   fetch(dbPrefix + encodeURI(searchTerm))
     .then(res => res.json())
@@ -63,13 +37,12 @@ function showResults (movie, display) {
   movieMain.classList.add('search-card')
   const movieTitle = document.createElement('div')
   const movieOverview = document.createElement('div')
-// set this as a data attribute
   const moviePoster = document.createElement('div')
 
   movieTitle.classList.add('movie-title')
-  // set this id to id from database -- post if selected
   movieTitle.id = movie.id
   movieOverview.classList.add('movie-overview')
+  movieOverview.classList.add('hide-me')
   moviePoster.classList.add('movie-poster')
 
   let posterUrl = ''
@@ -78,7 +51,7 @@ function showResults (movie, display) {
   } else {
     posterUrl = posterPrefix + movie.poster_path
   }
-  
+
   display.appendChild(movieMain)
   movieMain.appendChild(moviePoster)
   movieMain.appendChild(movieTitle)
@@ -88,9 +61,10 @@ function showResults (movie, display) {
   moviePoster.innerHTML = `<img class='poster' id =${posterUrl} src=${posterUrl}></img>`
 }
 
-let addURL = '/movies/add/'
+const addURL = '/movies/add/'
 
-function createMovie (obj) {
+function createMovie (obj, trailerLink) {
+  const youTubeLink = `https://www.youtube.com/embed/${trailerLink}`
   fetch(addURL, {
     method: 'POST',
     headers: {
@@ -102,14 +76,156 @@ function createMovie (obj) {
       title: obj.innerText,
       summary: obj.nextSibling.innerText,
       poster_image: obj.previousElementSibling.firstElementChild.id,
-      // movie_id: obj.id
+      trailer_link: youTubeLink
     })
   })
     .then(res => res.json())
     .then(data => {
       console.log(data)
       window.location.replace('/')
-      // getMovies()
-      //getMovieDetail()
     })
+}
+
+function getTrailerKey (movie) {
+  const movieId = movie.id
+  const urlVideo = `https://api.themoviedb.org/3/movie/${movieId}?api_key=cdea2b0b411e1e124dcdfb6985b46497&append_to_response=videos`
+  fetch(urlVideo)
+    .then(res => res.json())
+    .then(data => {
+      return data
+    })
+    .then(data => {
+      const trailerLink = data.videos.results[0].key
+      createMovie(movie, trailerLink)
+    })
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/*                                                   Event Listeners                                                  */
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+if (searchForm != null) {
+  searchForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+    const searchTerm = document.getElementById('movie-search').value
+    console.log(searchTerm)
+    searchMovies(searchTerm)
+  })
+}
+
+if (movieDisplay != null) {
+  movieDisplay.addEventListener('click', function (event) {
+    if (event.target.classList.contains('save')) {
+      console.log('I clicked save')
+      getTrailerKey(event.target.parentElement)
+      event.target.parentElement.parentElement.classList.add('hide-me')
+    }
+  })
+}
+
+const nominate = document.querySelectorAll('.nominate')
+const unNominate = document.querySelectorAll('.un-nominate')
+const toDelete = document.querySelectorAll('.delete')
+const nominateFromOther = document.querySelectorAll('.nominate-from-other')
+
+if (nominate != null) {
+  for (candidate of nominate) {
+    candidate.addEventListener('click', function (event) {
+      const moviePk = event.target.dataset.moviePk
+      const nomURL = `/movies/${moviePk}/nominate`
+      console.log(moviePk)
+      console.log(nomURL)
+      const nominees = document.querySelector('.nominees')
+      const numNominees = nominees.dataset.numNominees
+      if (numNominees < 5) {
+        fetch(nomURL, {
+          headers: {
+            Accept: 'application/json/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            window.location.replace('/')
+          })
+      } else {
+        window.location.replace('/movies/warning/')
+      }
+    })
+  }
+}
+
+if (unNominate != null) {
+  for (unCandidate of unNominate) {
+    unCandidate.addEventListener('click', function (event) {
+      const moviePk = event.target.dataset.moviePk
+      const nomURL = `/movies/${moviePk}/un_nominate`
+      console.log(moviePk)
+      console.log(nomURL)
+
+      fetch(nomURL, {
+        headers: {
+          Accept: 'application/json/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          window.location.replace('/')
+        })
+    })
+  }
+}
+
+if (toDelete != null) {
+  for (deleteCandidate of toDelete) {
+    deleteCandidate.addEventListener('click', function (event) {
+      const moviePk = event.target.dataset.moviePk
+      const nomURL = `/movies/${moviePk}/delete`
+
+      fetch(nomURL, {
+        headers: {
+          Accept: 'application/json/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          window.location.replace('/')
+        })
+    })
+  }
+}
+
+if (nominateFromOther != null) {
+  for (other of nominateFromOther) {
+    other.addEventListener('click', function (event) {
+      const moviePk = event.target.dataset.moviePk
+      const nomURL = `/movies/${moviePk}/nominate_from_other`
+      const nominees = document.querySelector('.nominees')
+      const numNominees = nominees.dataset.numNominees
+      if (numNominees < 5) {
+        fetch(nomURL, {
+          headers: {
+            Accept: 'application/json/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            window.location.replace('/movies/all_nominees/')
+          })
+      } else {
+        window.location.replace('/movies/warning/')
+      }
+    })
+  }
 }

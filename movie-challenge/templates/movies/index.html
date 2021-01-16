@@ -3,90 +3,59 @@
 {% block content %}
 
 <div class='flex-col'>
-  <!-- <div class='flex mb20'> -->
-  <!-- </div> -->
-  <ul class='mb50 flex animate__animated animate__fadeInRight'>
-    <div class='flex-col' style='width: 220px;'>
-      <p class='question-button'>Nominees</p>
-    </div>
-    {% for movie in movies %}
-    {% if movie.is_nominee == True %}
-    <li class='flex'>
-      <div class='card-holder flex-col'>
-        <a class='flex' href="{% url 'movie-detail' pk=movie.pk %}">
-            <div class='flip-card' data-card-pk={{movie.pk}}>
-              <div class='flip-card-inner'>
-                <div class='flip-card-front'>
-                  <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
-                </div>
-                <div class="flip-card-back">
-                  {{ movie.title }}
-                </div>
-              </div>
-            </div>
-        </a>
-        <div class='action-bar flex jc-sa'>
-          <div class='flex'>
-            <p>Nominee</p><i class='fa-trophy fas'></i>
-          </div>
-          <div>
-            <i class='fa-minus-circle fas'></i></div>
-        </div>
-      </div>
-    </li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-  <!-- <div class='flex mb20'> -->
-    
-  <!-- </div> -->
-  <ul class='mb50 flex animate__animated animate__fadeInRight'>
-    <div class='flex-col' style='width: 220px;'>
+  {% include 'movies/includes/nominee_list_include.html' %}
+  
+
+<div class='flex-no-w'>
+    <div class='flex-col'>
       <p class='question-button'>For Consideration</p>
     </div>
-    
+    <ul class='mb50 flex'>
     {% for movie in movies %}
     {% if movie.is_nominee == False %}
-    <li class='flex'>
-      <div class='card-holder flex-col'>
-        <a class='flex' href="{% url 'movie-detail' pk=movie.pk %}">
-            <div class='flip-card' data-card-pk={{movie.pk}}>
-              <div class='flip-card-inner'>
-                <div class='flip-card-front'>
-                  <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
-                </div>
-                <div class="flip-card-back">
-                  {{ movie.title }}
+      <li class='flex'>
+        <div class='card-holder flex-col'>
+          <a class='flex' href="{% url 'movie-detail' pk=movie.pk %}">
+              <div class='flip-card' data-card-pk={{movie.pk}}>
+                <div class='flip-card-inner'>
+                  <div class='flip-card-front'>
+                    <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
+                  </div>
+                  <div class="flip-card-back">
+                    {{ movie.title }}
+                  </div>
                 </div>
               </div>
+          </a>
+          <div class='action-bar flex jc-sa'>
+            <div class='flex'>
+              <p>Nominate</p><i data-movie-pk={{ movie.pk }} class='fa-star far nominate'></i>
             </div>
-        </a>
-        <div class='action-bar flex jc-sa'>
-          <div class='flex'>
-            <p>Nominate</p><i class='fa-star far'></i>
+            <div>
+              <i data-movie-pk={{ movie.pk }} class='fa-trash-alt fas delete'></i></div>
           </div>
-          <div>
-            <i class='fa-trash-alt fas'></i></div>
         </div>
-      </div>
-    </li>
+      </li>
     {% endif %}
     {% endfor %}
-  </ul>
+    </ul>
+  </div>
 </div>
 
-<!-- <section id='display'>
-  <div class='display-a'></div>
-  <div class='display-b'></div>
-</section> -->
+</div>
+<div class='ml30' style='margin-bottom: 20px;'>
+  <a class='question-button' href="{% url 'all-nominees' %}">View All Nominees</a>
+</div>
+<div class='ml30' style='margin-bottom: 20px;'>
+  <a class='question-button' href="{% url 'by-user-nominees' %}">Nominees by User</a>
 </div>
 <div class='bottom-section'>
-<p style="width: 200px;" class='search-heading question-button'>Search Movies</p>
-<form id="movie-form">
-  <input class='search' type='text' placeholder='Enter Movie' id='movie-search'></input>
-  <button class="button-function" type='Submit'>Submit</button> 
-</form>
+  <form id="movie-form">
+    <input class='search question-button' type='text' placeholder='Enter Movie to Search' id='movie-search'></input>
+    <button class="button-function" type='Submit'>Submit</button> 
+  </form>
 </div>
 
 <section id='display'></section>
+
 {% endblock %}

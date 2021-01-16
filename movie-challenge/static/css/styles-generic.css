@@ -12,7 +12,9 @@ ul {
   display: flex;
   flex-wrap: wrap; 
 }
-
+.flex-no-w {
+  display: flex;
+}
 .jc-sb {
   justify-content: space-between;
 }
@@ -49,6 +51,10 @@ ul {
 .ml20 {
   margin-left: 20px;
 }
+.ml30 {
+  margin-left: 30px;
+}
+
 .ml50 {
   margin-left: 50px;
 }
@@ -95,7 +101,7 @@ ul {
   padding-right: 10px;
 }
 
-.hideme {
+.hide-me {
   display: none;
 }
 

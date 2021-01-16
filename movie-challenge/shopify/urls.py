@@ -23,7 +23,14 @@ urlpatterns = [
     path('accounts/', include('registration.backends.simple.urls')),
     path('', views.index, name='home'),
     path('movies/<int:pk>/', views.movie_detail, name='movie-detail'),
-    path('movies/add/', views.add_movie, name='add-movie')
+    path('movies/add/', views.add_movie, name='add-movie'),
+    path('movies/warning/', views.warning, name='warning'),
+    path('movies/<int:pk>/nominate', views.nominate, name='nominate'),
+    path('movies/<int:pk>/un_nominate', views.un_nominate, name='un-nominate'),
+    path('movies/<int:pk>/delete', views.delete_nom, name='delete'),
+    path('movies/all_nominees/', views.all_nominees, name='all-nominees'),
+    path('movies/nominees_by_user/', views.by_user_nominees, name='by-user-nominees'),
+    path('movies/<int:pk>/nominate_from_other', views.nominate_from_other, name='nominate-other'),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='flex-col'>
+  <div class='warning-message'>You are only allowed 5 nominees. Please remove one from the list before adding any more.</div>
+  <a style='margin-left: 400px; width: 100px;' class='button-function' href="{% url 'home' %}">Return</a>
+</div>
+
+{% endblock %}
