@@ -3,8 +3,8 @@
     <p class='question-button'>Nominees</p>
     <p data-num-nominees={{ nominee_count }} class='question-button warning-button nominees'>Number of Nominees: {{ nominee_count }}</p>
   </div>
+
   <ul class='mb50 flex'>
-  
   {% for movie in movies %}
   {% if movie.is_nominee == True %}
     <li class='flex'>

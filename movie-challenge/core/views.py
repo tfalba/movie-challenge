@@ -27,7 +27,6 @@ def all_nominees(request):
   # num_movies_distinct = len(distinct_movies)
   # breakpoint()
 
-  # breakpoint()
   my_movies = Movie.objects.filter(is_nominee=True).filter(user=request.user)
   nominee_count = my_movies.filter(is_nominee=True).count()
   return render(request, 'movies/all_nominees.html', {"movies": movies, "nominee_count": nominee_count})
@@ -36,8 +35,8 @@ def all_nominees(request):
 def nominee_summary(requst):
   movies = Movie.objects.filter(is_nominee=True)
   #distinct_movies = movies.values('title').distinct()
-
   #for movie in movies:
+  pass
 
 @login_required
 def by_user_nominees(request):
