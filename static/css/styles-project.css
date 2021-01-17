@@ -73,14 +73,14 @@ a {
   font-weight: 600;
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 
 }
 
 .movie-trailer {
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
   
 .card-holder, .search-card {

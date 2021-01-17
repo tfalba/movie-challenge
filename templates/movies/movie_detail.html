@@ -7,7 +7,7 @@
     {% if movie %}
     {% if movie.is_nominee == True %}
     <li class='flex wid95'>
-      <div class='card-holder'>
+      <div class='card-holder' style='margin-bottom: 0;'>
         <div class='flip-card' data-card-pk={{movie.pk}}>
           <div class='flip-card-inner'>
             <div class='flip-card-front'>
@@ -32,7 +32,7 @@
       </div>
       <div class='flex movie-trailer''>
         
-        <iframe width="626" height="320" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="646" height="340" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 
     
@@ -44,7 +44,7 @@
     {% if movie %}
     {% if movie.is_nominee == False %}
     <li class='flex wid95'>
-      <div class='card-holder'>
+      <div class='card-holder' style='margin-bottom: 0;'>
         <div class='flip-card' data-card-pk={{movie.pk}}>
           <div class='flip-card-inner'>
             <div class='flip-card-front'>
