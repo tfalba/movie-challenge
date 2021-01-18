@@ -153,6 +153,7 @@ button {
   display:flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
 }
 
@@ -171,6 +172,7 @@ button {
 
 .card-title {
   font-family: 'Indie Flower', cursive;
+  line-height: 30px;
   /* margin-top: 20px; */
 }
 .card-year {
@@ -246,12 +248,13 @@ label {
   background-image: url("https://movie-database-assets.s3.amazonaws.com/images/paper-background.jpg");
 
 
-  height: 140px;
+  height: 160px;
   color: black;
   padding-top: 80px;
-  width: 140px;
+  width: 150px;
   margin-left: 35px;
   padding-left: 25px;
+  font-family: 'Indie Flower', cursive;
 }
 
 .warning-message {
@@ -269,6 +272,7 @@ label {
   width: 300px;
   padding-left: 25px;
   font-size: 30px;
+  font-family: 'Indie Flower', cursive;
 }
 
 .button-function {
