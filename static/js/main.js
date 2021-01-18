@@ -41,7 +41,10 @@ function showResults (movie, display) {
 
   movieTitle.classList.add('movie-title')
   movieTitle.id = movie.id
-  const releaseYear = movie.release_date.substring(0, 4)
+  let releaseYear = ''
+  if (movie.release_date !== undefined) {
+    releaseYear = movie.release_date.substring(0, 4)
+  }
   movieTitle.dataset.date = releaseYear
   movieTitle.dataset.title = movie.title
   movieOverview.classList.add('movie-overview')
@@ -117,10 +120,21 @@ if (searchForm != null) {
   })
 }
 
+let scheduledFunction = false
+if (searchForm != null) {
+  const searchTermDynamic = document.getElementById('movie-search')
+  searchTermDynamic.addEventListener('keyup', function (event) {
+    event.preventDefault()
+    if (scheduledFunction) {
+      clearTimeout(scheduledFunction)
+    }
+    scheduledFunction = setTimeout(function () { searchMovies(searchTermDynamic.value) }, 1000)
+  })
+}
+
 if (movieDisplay != null) {
   movieDisplay.addEventListener('click', function (event) {
     if (event.target.classList.contains('save')) {
-      console.log('I clicked save')
       getTrailerKey(event.target.parentElement)
       event.target.parentElement.parentElement.classList.add('hide-me')
     }

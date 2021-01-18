@@ -100,8 +100,9 @@ a {
   margin-top: 20px;
 }
 
-button {
+button, .clear-button {
   width: 100px;
+  text-align: center;
 }
 
 .action-bar {

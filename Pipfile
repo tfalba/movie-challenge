@@ -17,6 +17,7 @@ psycopg2-binary = "*"
 gunicorn = "*"
 django-on-heroku = "*"
 whitenoise = "*"
+fabric3 = "*"
 
 [requires]
 python_version = "3.8"
