@@ -97,8 +97,8 @@ WSGI_APPLICATION = 'shopify.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'movie',
-        'USER': 'movie',
+        'NAME': 'movies_new',
+        'USER': 'tracyfalba',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -176,5 +176,5 @@ import django_on_heroku
 django_on_heroku.settings(locals())
 
 # add ENV=development in the .env file for the below to work:
-if os.environ.get('ENV') == 'development':
-    del DATABASES['default']['OPTIONS']['sslmode']
+# if os.environ.get('ENV') == 'development':
+#     del DATABASES['default']['OPTIONS']['sslmode']
