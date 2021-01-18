@@ -41,6 +41,9 @@ function showResults (movie, display) {
 
   movieTitle.classList.add('movie-title')
   movieTitle.id = movie.id
+  const releaseYear = movie.release_date.substring(0, 4)
+  movieTitle.dataset.date = releaseYear
+  movieTitle.dataset.title = movie.title
   movieOverview.classList.add('movie-overview')
   movieOverview.classList.add('hide-me')
   moviePoster.classList.add('movie-poster')
@@ -51,12 +54,12 @@ function showResults (movie, display) {
   } else {
     posterUrl = posterPrefix + movie.poster_path
   }
-
+  
   display.appendChild(movieMain)
   movieMain.appendChild(moviePoster)
   movieMain.appendChild(movieTitle)
   movieMain.appendChild(movieOverview)
-  movieTitle.innerHTML = `${movie.title}<i class='fas fa-share-square save'></i></i>`
+  movieTitle.innerHTML = `${movie.title}<i class='fas fa-share-square save' style='padding-left: 5px; padding-right: 5px;'></i></i>(${releaseYear})`
   movieOverview.innerHTML = movie.overview
   moviePoster.innerHTML = `<img class='poster' id =${posterUrl} src=${posterUrl}></img>`
 }
@@ -73,10 +76,11 @@ function createMovie (obj, trailerLink) {
       'X-CSRFToken': csrftoken,
     },
     body: JSON.stringify({
-      title: obj.innerText,
+      title: obj.dataset.title,
       summary: obj.nextSibling.innerText,
       poster_image: obj.previousElementSibling.firstElementChild.id,
-      trailer_link: youTubeLink
+      trailer_link: youTubeLink,
+      release_year: obj.dataset.date
     })
   })
     .then(res => res.json())

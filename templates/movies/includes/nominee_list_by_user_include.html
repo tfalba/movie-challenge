@@ -16,9 +16,11 @@
                 <div class='flip-card-front'>
                   <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
                 </div>
-                <div class="flip-card-back">
-                  {{ movie.title }}
+                <div class="flip-card-back flex">
+                  <p class='card-title'>{{ movie.title }}</p>
+                  <p class='card-year'>({{ movie.release_year }})</p>
                 </div>
+
               </div>
             </div>
         </a>

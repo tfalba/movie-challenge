@@ -17,6 +17,7 @@ class Movie(models.Model):
     is_private = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    release_year = models.CharField(max_length=4, null=True, blank=True)
     
     def __str__(self):
         return self.title

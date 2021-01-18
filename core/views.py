@@ -62,7 +62,10 @@ def add_movie(request):
   summary = response['summary']
   poster_image = response['poster_image']
   trailer_link = response['trailer_link']
-  new_movie = Movie.objects.create(title=title, summary=summary, poster_image=poster_image, trailer_link=trailer_link, user=request.user)
+  release_year = response['release_year']
+  # new_movie = Movie.objects.create(title=title, summary=summary, poster_image=poster_image, trailer_link=trailer_link, user=request.user)
+
+  new_movie = Movie.objects.create(title=title, summary=summary, poster_image=poster_image, trailer_link=trailer_link, user=request.user, release_year=release_year)
   data = {'status': 'OK'}
   return JsonResponse(data)
 
