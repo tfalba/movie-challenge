@@ -10,3 +10,6 @@ def deploy():
    local('heroku maintenance:on')
    local('git push heroku main')
    local('heroku maintenance:off')
+
+# Requires import of fabric3 in virtual env
+# To execute type 'fab deploy' without the ''.

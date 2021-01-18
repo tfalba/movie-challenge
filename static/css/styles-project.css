@@ -225,6 +225,15 @@ label {
   text-align: center;
   margin-bottom: 0;
 }
+
+.prompt-button {
+  font-size: 20px;
+    margin-left: 30px;
+    height: 50px;
+    margin-top: 61px;
+    padding: 10px;
+    width: 200px;
+}
 .search-button {
   color: black;
   background-color: #ffffffe4;
