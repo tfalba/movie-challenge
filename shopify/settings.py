@@ -28,6 +28,10 @@ BASE_DIR = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+S3_BUCKET_NAME = env('S3_BUCKET_NAME')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -174,4 +178,3 @@ django_on_heroku.settings(locals())
 # add ENV=development in the .env file for the below to work:
 if os.environ.get('ENV') == 'development':
     del DATABASES['default']['OPTIONS']['sslmode']
-    
