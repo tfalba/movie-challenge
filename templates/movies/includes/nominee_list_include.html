@@ -1,9 +1,9 @@
+
+
 <div class='flex-no-w'>
   <div class='flex-col'>
-    <p class='question-button'>Nominees</p>
-    <p data-num-nominees={{ nominee_count }} class='question-button warning-button nominees'>Number of Nominees: {{ nominee_count }}</p>
+    <p class='question-button'>My Nominees</p>
   </div>
-
   <ul class='mb50 flex'>
   {% for movie in movies %}
   {% if movie.is_nominee == True %}
@@ -30,7 +30,12 @@
         </div>
       </div>
     </li>
+    
   {% endif %}
   {% endfor %}
+  <div class='flex-col'>
+    <!-- <p class='question-button'>Nominees</p> -->
+    <p data-num-nominees={{ nominee_count }} class='question-button warning-button nominees'>Number of Nominees: {{ nominee_count }}</p>
+  </div>
   </ul>
 </div>

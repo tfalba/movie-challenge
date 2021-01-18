@@ -4,6 +4,8 @@
 
 <div class='flex-col'>
   {% include 'movies/includes/nominee_list_include.html' %}
+  
+
   <div class='flex-no-w'>
     <div class='flex-col'>
       <p class='question-button'>For Consideration</p>
@@ -39,19 +41,19 @@
     </ul>
   </div>
 </div>
-
+<!-- 
 <div class='ml30' style='margin-bottom: 20px;'>
   <a class='question-button' href="{% url 'all-nominees' %}">View All Nominees</a>
 </div>
 <div class='ml30' style='margin-bottom: 20px;'>
   <a class='question-button' href="{% url 'by-user-nominees' %}">Nominees by User</a>
-</div>
+</div> -->
 
 <!-- ------------------------------------------- Search Form and Display ------------------------------------------- -->
 
 <div class='flex'>
-  <form class='ml20 flex-col' id="movie-form">
-    <input class='search question-button' type='text' placeholder='Enter Movie to Search' id='movie-search'></input>
+  <form class='flex-col' id="movie-form">
+    <input class='search search-button question-button' type='text' placeholder='Enter Movie to Search' id='movie-search'></input>
     <button class="button-function" type='Submit'>Submit</button> 
   </form>
 </div>

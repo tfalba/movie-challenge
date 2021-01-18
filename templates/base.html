@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Acme&family=Dosis:wght@200;300;400;500;600;700;800&family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Indie+Flower&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,800;1,100&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <link  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,800;1,100&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/846acebbe7.js" crossorigin="anonymous"></script>
@@ -20,8 +21,19 @@
 
 
   <div class='header flex-col-center'>
-    <h1><a class="header-nav" href="{% url 'home' %}">SHOPIFY MOVIE AWARDS<i style='padding-left: 10px; font-size: 90px; color: rgba(249, 249, 249, 0.918);' class='fa-trophy fas'></i></a></h1>
-    <!-- <img style='width: 100px;' src="{% static 'images/trophy-transparent.png' %}"> -->
+    <h1><a class="header-nav" href="{% url 'home' %}"><i style='padding-right: 10px; font-size: 80px; color: rgba(249, 249, 249, 0.918);' class='fa-trophy fas'></i>SHOPIFY MOVIE AWARDS<i style='padding-left: 10px; font-size: 80px; color: rgba(249, 249, 249, 0.918);' class='fa-trophy fas'></i></a></h1>
+    <div class='nav-div flex'>
+      <!-- <div class='ml30' style='margin-bottom: 20px;'> -->
+        <a class='question-button nav-button' href="{% url 'home' %}">My Nominees</a>
+      <!-- </div> -->
+
+      <!-- <div class='ml30' style='margin-bottom: 20px;'> -->
+        <a class='question-button nav-button' href="{% url 'all-nominees' %}">View All Nominees</a>
+      <!-- </div> -->
+      <!-- <div class='ml30' style='margin-bottom: 20px;'> -->
+        <a class='question-button nav-button' href="{% url 'by-user-nominees' %}">Nominees by User</a>
+      <!-- </div> -->
+    </div>
   </div>
 
 
