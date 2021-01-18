@@ -62,7 +62,7 @@ a {
 }
 
 .summary-box {
-  width: 550px;
+  width: 450px;
   font-size: 18px;
   font-size: 18px;
   background-color: #440508bf;
@@ -115,18 +115,29 @@ button, .clear-button {
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   background-color: transparent;
-  width: 205px;
-  height: 280px;
+  /* width: 205px;
+  height: 280px; */
+  height: 250px;
+  width: 183px;
+
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
+
+.flip-card-detail {
+  background-color: transparent;
+  width: 234px;
+  height: 320px;
+  perspective: 1000px;
+}
+
 .search-card {
   width: 205px;
 }
 
-.card-image {
+/* .card-image {
   width: 200px;
   height: 300px;
-}
+} */
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
@@ -143,6 +154,9 @@ button, .clear-button {
   transform: rotateY(180deg);
 }
 
+.flip-card-detail:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
 /* Position the front and back side */
 .flip-card-front, .flip-card-back {
   position: absolute;
@@ -174,11 +188,11 @@ button, .clear-button {
 .card-title {
   font-family: 'Indie Flower', cursive;
   line-height: 30px;
-  /* margin-top: 20px; */
+  padding-left: 4px;
+  padding-right: 4px;
 }
 .card-year {
   font-family: 'Indie Flower', cursive;
-  /* margin-bottom: 30px; */
   font-size: 20px;
   padding-left: 5px;
   padding-right: 5px;
