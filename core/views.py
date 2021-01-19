@@ -12,6 +12,10 @@ import random
 def index(request):
   movies = Movie.objects.filter(Q(user=request.user)).order_by('modified_at')
   nominee_count = movies.filter(is_nominee=True).count()
+  # for mov in movies:
+  #   mov_nominatinos = Movie.objects.filter(is_nominee=True).filter(title=mov.title).count()
+  # movies.annotate(mov_nominations)
+  # breakpoint()
   return render(request, "movies/index.html", {"movies": movies, "nominee_count": nominee_count})
 
 @login_required
@@ -29,6 +33,7 @@ def all_nominees(request):
 
   my_movies = Movie.objects.filter(is_nominee=True).filter(user=request.user)
   nominee_count = my_movies.filter(is_nominee=True).count()
+
   return render(request, 'movies/all_nominees.html', {"movies": movies, "nominee_count": nominee_count})
 
 @login_required
