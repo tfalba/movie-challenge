@@ -51,9 +51,11 @@ def warning(request):
 @login_required
 def movie_detail(request, pk):
   movie = get_object_or_404(Movie, pk=pk)
+  nominations = Movie.objects.filter(title=movie.title).count()
+  # breakpoint()
   movies = Movie.objects.filter(Q(user=request.user)).order_by('modified_at')
   nominee_count = movies.filter(is_nominee=True).count()
-  return render(request, 'movies/movie_detail.html', {"movie": movie, "nominee_count": nominee_count})
+  return render(request, 'movies/movie_detail.html', {"movie": movie, "nominee_count": nominee_count, "nominations": nominations})
 
 @login_required
 def add_movie(request):
