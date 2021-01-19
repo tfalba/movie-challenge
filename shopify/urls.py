@@ -31,6 +31,7 @@ urlpatterns = [
     path('movies/all_nominees/', views.all_nominees, name='all-nominees'),
     path('movies/nominees_by_user/', views.by_user_nominees, name='by-user-nominees'),
     path('movies/<int:pk>/nominate_from_other', views.nominate_from_other, name='nominate-other'),
+    path('movies/<int:pk>/nominate_from_user', views.nominate_from_user, name='nominate-user'),
 ]
 
 if settings.DEBUG:

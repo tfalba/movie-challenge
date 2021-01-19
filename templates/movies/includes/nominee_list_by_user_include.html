@@ -1,13 +1,11 @@
-{% for user in users %}
-
 <div class='flex-no-w'>
   <div class='flex-col'>
-    <a href="{% url 'home' %}" class='question-button'>{{ user }} Nominees</a>
+    <a href="{% url 'home' %}" class='question-button'>My Nominees</a>
   </div>
   <ul class='mb50 flex'>
   
   {% for movie in movies %}
-  {% if user == movie.user %}
+  {% if movie.user == request.user %}
     <li class='flex'>
       <div class='card-holder flex-col'>
         <a class='flex' href="{% url 'movie-detail' pk=movie.pk %}">
@@ -28,11 +26,57 @@
           <div class='flex'>
             <p>Nominee</p><i class='fa-trophy fas'></i>
           </div>
+          <div>
+            <i data-movie-pk={{ movie.pk }} class='fa-minus-circle fas un-nominate'></i></div>
+        </div>
       </div>
     </li>
+  {% endif %}
+  {% endfor %}
+  </ul>
+</div>
+
+{% for user in users %}
+{% if user != request.user %}
+{% if user.movies.all %}
+<div class='flex-no-w'>
+  <div class='flex-col'>
+    <a href="{% url 'home' %}" class='question-button'>{{ user }} Nominees</a>
+  </div>
+  <ul class='mb50 flex'>
+  
+  {% for movie in movies %}
+  {% if user == movie.user %}
+  <li class='flex'>
+    <div class='card-holder flex-col'>
+      <a class='flex' href="{% url 'movie-detail' pk=movie.pk %}">
+          <div class='flip-card' data-card-pk={{movie.pk}}>
+            <div class='flip-card-inner'>
+              <div class='flip-card-front'>
+                <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
+              </div>
+              <div class="flip-card-back flex">
+                <p class='card-title'>{{ movie.title }}</p>
+                <p class='card-year'>({{ movie.release_year }})</p>
+              </div>
+
+            </div>
+          </div>
+      </a>
+      <div class='action-bar flex jc-sa'>
+        <div class='flex'>
+          <p data-num-nominees={{ nominee_count }} class='hide-me nominees'>Number of Nominees: {{ nominee_count }}</p>
+          <p>Nominate</p><i data-movie-pk={{ movie.pk }} class='fa-star far nominate-from-user'></i>
+        </div>
+        <div>
+      </div>
+    </div>
+  </li>
     {% endif %}
   {% endfor %}
 
   </ul>
 </div>
+{% endif %}
+{% endif %}
 {% endfor %}

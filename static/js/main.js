@@ -6,7 +6,7 @@ function getCookie (name) {
       const cookie = cookies[i].trim()
       if (cookie.substring(0, name.length + 1) === (name + '=')) {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
-        break;
+        break
       }
     }
   }
@@ -57,7 +57,7 @@ function showResults (movie, display) {
   } else {
     posterUrl = posterPrefix + movie.poster_path
   }
-  
+
   display.appendChild(movieMain)
   movieMain.appendChild(moviePoster)
   movieMain.appendChild(movieTitle)
@@ -76,7 +76,7 @@ function createMovie (obj, trailerLink) {
     headers: {
       Accept: 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRFToken': csrftoken,
+      'X-CSRFToken': csrftoken
     },
     body: JSON.stringify({
       title: obj.dataset.title,
@@ -145,6 +145,7 @@ const nominate = document.querySelectorAll('.nominate')
 const unNominate = document.querySelectorAll('.un-nominate')
 const toDelete = document.querySelectorAll('.delete')
 const nominateFromOther = document.querySelectorAll('.nominate-from-other')
+const nominateFromUser = document.querySelectorAll('.nominate-from-user')
 
 if (nominate != null) {
   for (candidate of nominate) {
@@ -240,6 +241,33 @@ if (nominateFromOther != null) {
           })
           .then(data => {
             window.location.replace('/movies/all_nominees/')
+          })
+      } else {
+        window.location.replace('/movies/warning/')
+      }
+    })
+  }
+}
+
+if (nominateFromUser != null) {
+  for (other of nominateFromUser) {
+    other.addEventListener('click', function (event) {
+      const moviePk = event.target.dataset.moviePk
+      const nomURL = `/movies/${moviePk}/nominate_from_user`
+      const nominees = document.querySelector('.nominees')
+      const numNominees = nominees.dataset.numNominees
+      if (numNominees < 5) {
+        fetch(nomURL, {
+          headers: {
+            Accept: 'application/json/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+          .then(response => {
+            return response.json()
+          })
+          .then(data => {
+            window.location.replace('/movies/nominees_by_user/')
           })
       } else {
         window.location.replace('/movies/warning/')
