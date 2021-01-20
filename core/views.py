@@ -20,7 +20,16 @@ def index(request):
 
 @login_required
 def all_nominees(request):
-    movies = Movie.objects.filter(is_nominee=True).order_by('title', 'modified_at')
+    movies = Movie.objects.filter(is_nominee=True).order_by('title', 'release_year', 'modified_at')
+    movie_titles = movies.values('title').distinct()
+    movies_unique = Movie.objects.none()
+    for movie in movies:
+        movie_first_instance = movies.filter(title=movie.title).first()
+        if movie_first_instance.title not in movie_titles:
+            # movies_unique.append(movie_first_instance)
+            instance = Movie.objects.filter(pk=movie_first_instance.pk)
+            movies_unique |= instance
+    # breakpoint()
     # distinct_movies = movies.values('title').distinct()
     # for title in distinct_movies:
     #   for movie in movies:
@@ -34,10 +43,10 @@ def all_nominees(request):
     my_movies = Movie.objects.filter(is_nominee=True).filter(user=request.user)
     nominee_count = my_movies.filter(is_nominee=True).count()
 
-    return render(request, 'movies/all_nominees.html', {"movies": movies, "nominee_count": nominee_count})
+    return render(request, 'movies/all_nominees.html', {"movies_unique": movies_unique, "movies": movies, "nominee_count": nominee_count})
 
 @login_required
-def nominee_summary(requst):
+def nominee_summary(request):
     movies = Movie.objects.filter(is_nominee=True)
     #distinct_movies = movies.values('title').distinct()
     #for movie in movies:

@@ -143,6 +143,7 @@ if (movieDisplay != null) {
 
 const nominate = document.querySelectorAll('.nominate')
 const unNominate = document.querySelectorAll('.un-nominate')
+const unNominateFromAll = document.querySelectorAll('.un-nominate-from-all')
 const toDelete = document.querySelectorAll('.delete')
 const nominateFromOther = document.querySelectorAll('.nominate-from-other')
 const nominateFromUser = document.querySelectorAll('.nominate-from-user')
@@ -195,6 +196,30 @@ if (unNominate != null) {
         })
         .then(data => {
           window.location.replace('/')
+        })
+    })
+  }
+}
+
+if (unNominateFromAll != null) {
+  for (unCandidateAll of unNominateFromAll) {
+    unCandidateAll.addEventListener('click', function (event) {
+      const moviePk = event.target.dataset.moviePk
+      const nomURL = `/movies/${moviePk}/un_nominate`
+      console.log(moviePk)
+      console.log(nomURL)
+
+      fetch(nomURL, {
+        headers: {
+          Accept: 'application/json/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+        .then(response => {
+          return response.json()
+        })
+        .then(data => {
+          window.location.replace('/movies/all_nominees')
         })
     })
   }

@@ -27,7 +27,7 @@
             <p>Nominee</p><i class='fa-trophy fas'></i>
           </div>
           <div>
-            <i data-movie-pk={{ movie.pk }} class='fa-minus-circle fas un-nominate'></i></div>
+            <i data-movie-pk={{ movie.pk }} class='fa-minus-circle fas un-nominate-from-all'></i></div>
         </div>
       </div>
     </li>
@@ -41,7 +41,7 @@
     <p class='question-button'>Others' Nominees</p>
   </div>
   <ul class='mb50 flex'>
-  {% for movie in movies %}
+  {% for movie in movies_unique %}
   {% if movie.user != request.user %}
     <li class='flex'>
       <div class='card-holder flex-col'>
@@ -80,7 +80,7 @@
   </div>
   <ul class='mb50 flex'>
   
-  {% for movie in movies %}
+  {% for movie in movies_unique %}
     <li class='flex'>
       <div class='card-holder flex-col'>
         <a class='flex' href="{% url 'movie-detail' pk=movie.pk %}">
