@@ -4,12 +4,12 @@
 
 <div class='flex-col'>
   {% include 'movies/includes/nominee_list_include.html' %}
-  
+  <div class='flex-col'>
+    <p class='question-button'>For Consideration</p>
+  </div>
 
-  <div class='flex-no-w'>
-    <div class='flex-col'>
-      <p class='question-button'>For Consideration</p>
-    </div>
+  <div class='flex'>
+
     <ul class='mb50 flex'>
     {% for movie in movies %}
     {% if movie.is_nominee == False %}

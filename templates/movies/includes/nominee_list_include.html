@@ -1,9 +1,9 @@
 
+<div class='flex-col'>
+  <p class='question-button'>My Nominees</p>
+</div>
+<div class='flex'>
 
-<div class='flex-no-w'>
-  <div class='flex-col'>
-    <p class='question-button'>My Nominees</p>
-  </div>
   <ul class='mb50 flex'>
   {% for movie in movies %}
   {% if movie.is_nominee == True %}

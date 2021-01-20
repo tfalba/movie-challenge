@@ -1,7 +1,8 @@
-<div class='flex-no-w'>
-  <div class='flex-col'>
-    <a href="{% url 'home' %}" class='question-button'>My Nominees</a>
-  </div>
+<div class='flex-col'>
+  <a href="{% url 'home' %}" class='question-button'>My Nominees</a>
+</div>
+<div class='flex'>
+
   <ul class='mb50 flex'>
   
   {% for movie in movies %}
@@ -39,10 +40,11 @@
 {% for user in users %}
 {% if user != request.user %}
 {% if user.movies.all %}
-<div class='flex-no-w'>
-  <div class='flex-col'>
-    <a href="{% url 'home' %}" class='question-button'>{{ user }} Nominees</a>
-  </div>
+<div class='flex-col'>
+  <a href="{% url 'home' %}" class='question-button'>{{ user }} Nominees</a>
+</div>
+<div class='flex'>
+
   <ul class='mb50 flex'>
   
   {% for movie in movies %}

@@ -4,7 +4,23 @@
 
 <div class='flex-col'>
   {% include 'movies/includes/nominee_list_all_include.html' %}
+  <!-- ------------------------------------------- Search Form and Display ------------------------------------------- -->
+
+<div class='flex'>
+  <form class='flex-col' id="movie-form">
+    <input class='search search-button question-button' type='text' placeholder='Enter Movie to Search' id='movie-search'></input>
+    <div class='flex'>
+      <button class="button-function" type='Submit'>Submit</button> 
+      <a class="button-function clear-button" href="{% url 'home' %}">Clear</a>
+  </div>
+  </form>
 </div>
+
+<section id='display'></section>
+</div>
+
+
+
 
 {% endblock %}
   
