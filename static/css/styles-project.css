@@ -63,7 +63,7 @@ a {
 }
 
 .summary-box {
-  width: 450px;
+  width: 380px;
   font-size: 18px;
   font-size: 18px;
   background-color: #440508bf;
@@ -80,7 +80,9 @@ a {
 .movie-trailer {
   margin-left: 20px;
   margin-right: 20px;
-  /* margin-top: 20px; */
+  margin-top: 15px;
+  margin-bottom: 15px;
+  align-content: center;
 }
   
 .card-holder, .search-card {

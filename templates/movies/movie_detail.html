@@ -10,7 +10,7 @@
   <ul class='mb50 flex-center animate__animated animate__fadeInUp'>
     {% if movie %}
     {% if movie.is_nominee == True %}
-    <li class='flex wid95'>
+    <li class='flex-center'>
       <div class='card-holder' style='margin-bottom: 0;'>
         <div class='flip-card-detail' data-card-pk={{movie.pk}}>
           <div class='flip-card-inner'>
@@ -36,7 +36,7 @@
       </div>
       <div class='flex movie-trailer''>
         
-        <iframe width="722" height="380" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="680" height="360" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 
     
@@ -47,9 +47,9 @@
   <ul class='mb50 flex-center animate__animated animate__fadeInUp'>
     {% if movie %}
     {% if movie.is_nominee == False %}
-    <li class='flex wid95'>
+    <li class='flex-center'>
       <div class='card-holder' style='margin-bottom: 0;'>
-        <div class='flip-card' data-card-pk={{movie.pk}}>
+        <div class='flip-card-detail' data-card-pk={{movie.pk}}>
           <div class='flip-card-inner'>
             <div class='flip-card-front'>
               <img class='card-image' src="{{ movie.poster_image }}" style="width:100%; height:100%;">  
@@ -74,7 +74,7 @@
       </div>
       <div class='flex movie-trailer'>
         
-        <iframe width="626" height="320" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="680" height="360" src="{{ movie.trailer_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 
     
