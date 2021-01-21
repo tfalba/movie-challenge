@@ -24,8 +24,9 @@ def all_nominees(request):
         if movie_first_instance.title not in movie_titles:
             instance = Movie.objects.filter(pk=movie_first_instance.pk)
             movies_unique |= instance
+    movies_unique = movies_unique.order_by('title', 'release_year')
 
-    my_movies = Movie.objects.filter(is_nominee=True).filter(user=request.user)
+    my_movies = Movie.objects.filter(is_nominee=True).filter(user=request.user).order_by('title', 'release_year')
     nominee_count = my_movies.filter(is_nominee=True).count()
 
     return render(request, 'movies/all_nominees.html', {"movies_unique": movies_unique, "movies": movies, "nominee_count": nominee_count})
