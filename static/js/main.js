@@ -88,7 +88,6 @@ function createMovie (obj, trailerLink) {
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       window.location.replace('/')
     })
 }
@@ -115,7 +114,6 @@ if (searchForm != null) {
   searchForm.addEventListener('submit', function (event) {
     event.preventDefault()
     const searchTerm = document.getElementById('movie-search').value
-    console.log(searchTerm)
     searchMovies(searchTerm)
   })
 }
@@ -153,8 +151,6 @@ if (nominate != null) {
     candidate.addEventListener('click', function (event) {
       const moviePk = event.target.dataset.moviePk
       const nomURL = `/movies/${moviePk}/nominate`
-      console.log(moviePk)
-      console.log(nomURL)
       const nominees = document.querySelector('.nominees')
       const numNominees = nominees.dataset.numNominees
       if (numNominees < 5) {
@@ -182,9 +178,6 @@ if (unNominate != null) {
     unCandidate.addEventListener('click', function (event) {
       const moviePk = event.target.dataset.moviePk
       const nomURL = `/movies/${moviePk}/un_nominate`
-      console.log(moviePk)
-      console.log(nomURL)
-
       fetch(nomURL, {
         headers: {
           Accept: 'application/json/json',
@@ -206,8 +199,6 @@ if (unNominateFromAll != null) {
     unCandidateAll.addEventListener('click', function (event) {
       const moviePk = event.target.dataset.moviePk
       const nomURL = `/movies/${moviePk}/un_nominate`
-      console.log(moviePk)
-      console.log(nomURL)
 
       fetch(nomURL, {
         headers: {

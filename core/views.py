@@ -12,10 +12,6 @@ import random
 def index(request):
     movies = Movie.objects.filter(Q(user=request.user)).order_by('modified_at')
     nominee_count = movies.filter(is_nominee=True).count()
-    # for mov in movies:
-    #   mov_nominatinos = Movie.objects.filter(is_nominee=True).filter(title=mov.title).count()
-    # movies.annotate(mov_nominations)
-    # breakpoint()
     return render(request, "movies/index.html", {"movies": movies, "nominee_count": nominee_count})
 
 @login_required
@@ -24,21 +20,10 @@ def all_nominees(request):
     movie_titles = movies.values('title').distinct()
     movies_unique = Movie.objects.none()
     for movie in movies:
-        movie_first_instance = movies.filter(title=movie.title).first()
+        movie_first_instance = movies.filter(title=movie.title).filter(release_year=movie.release_year).first()
         if movie_first_instance.title not in movie_titles:
-            # movies_unique.append(movie_first_instance)
             instance = Movie.objects.filter(pk=movie_first_instance.pk)
             movies_unique |= instance
-    # breakpoint()
-    # distinct_movies = movies.values('title').distinct()
-    # for title in distinct_movies:
-    #   for movie in movies:
-    #     count_movie = 0
-    #     if title == movie.title:
-    #       count_movie += 1
-    #   title.annotate('count_movie')
-    # num_movies_distinct = len(distinct_movies)
-    # breakpoint()
 
     my_movies = Movie.objects.filter(is_nominee=True).filter(user=request.user)
     nominee_count = my_movies.filter(is_nominee=True).count()
@@ -48,8 +33,7 @@ def all_nominees(request):
 @login_required
 def nominee_summary(request):
     movies = Movie.objects.filter(is_nominee=True)
-    #distinct_movies = movies.values('title').distinct()
-    #for movie in movies:
+
     pass
 
 @login_required
@@ -67,8 +51,7 @@ def warning(request):
 @login_required
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
-    nominations = Movie.objects.filter(title=movie.title).filter(is_nominee=True).count()
-    # breakpoint()
+    nominations = Movie.objects.filter(title=movie.title).filter(release_year=movie.release_year).filter(is_nominee=True).count()
     movies = Movie.objects.filter(Q(user=request.user)).order_by('modified_at')
     nominee_count = movies.filter(is_nominee=True).count()
     return render(request, 'movies/movie_detail.html', {"movie": movie, "nominee_count": nominee_count, "nominations": nominations})
@@ -81,8 +64,6 @@ def add_movie(request):
     poster_image = response['poster_image']
     trailer_link = response['trailer_link']
     release_year = response['release_year']
-    # new_movie = Movie.objects.create(title=title, summary=summary, poster_image=poster_image, trailer_link=trailer_link, user=request.user)
-
     new_movie = Movie.objects.create(title=title, summary=summary, poster_image=poster_image, trailer_link=trailer_link, user=request.user, release_year=release_year)
     data = {'status': 'OK'}
     return JsonResponse(data)
@@ -93,7 +74,7 @@ def nominate(request, pk):
     movie = get_object_or_404(Movie, pk=pk)
     matched = False
     for movie_check in movies:
-        if movie_check.title == movie.title:
+        if movie_check.title == movie.title and movie_check.release_year == movie.release_year:
             matched = True
     if matched is False:
         movie.is_nominee = True
@@ -107,12 +88,12 @@ def nominate_from_other(request, pk):
     movies = Movie.objects.filter(user=request.user)
     matched = False
     for my_movie in movies:
-        if movie.title == my_movie.title:
+        if my_movie.title == movie.title and my_movie.release_year == movie.release_year:
             my_movie.is_nominee = True
             my_movie.save()
             matched = True
     if matched is False:
-        new_movie = Movie.objects.create(title=movie.title, summary=movie.summary, poster_image=movie.poster_image, trailer_link=movie.trailer_link, user=request.user, is_nominee=True)
+        new_movie = Movie.objects.create(title=movie.title, summary=movie.summary, poster_image=movie.poster_image, trailer_link=movie.trailer_link, user=request.user, is_nominee=True, release_year=movie.release_year)
     data = {'create-nominee': 'create-nominee'}
     return JsonResponse(data)
 
@@ -122,12 +103,12 @@ def nominate_from_user(request, pk):
     movies = Movie.objects.filter(user=request.user)
     matched = False
     for my_movie in movies:
-        if movie.title == my_movie.title:
+        if movie.title == my_movie.title and movie.release_year == my_movie.release_year:
             my_movie.is_nominee = True
             my_movie.save()
             matched = True
     if matched is False:
-        new_movie = Movie.objects.create(title=movie.title, summary=movie.summary, poster_image=movie.poster_image, trailer_link=movie.trailer_link, user=request.user, is_nominee=True)
+        new_movie = Movie.objects.create(title=movie.title, summary=movie.summary, poster_image=movie.poster_image, trailer_link=movie.trailer_link, user=request.user, is_nominee=True, release_year=movie.release_year)
     data = {'create-nominee': 'create-nominee'}
     return JsonResponse(data)
 
@@ -145,4 +126,3 @@ def delete_nom(request, pk):
     movie.delete()
     data = {'mark-deleted': 'mark-deleted'}
     return JsonResponse(data)
-
