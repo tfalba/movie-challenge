@@ -10,7 +10,7 @@ import random
 
 @login_required
 def index(request):
-    movies = Movie.objects.filter(Q(user=request.user)).order_by('modified_at')
+    movies = Movie.objects.filter(Q(user=request.user)).order_by('title', 'release_year')
     nominee_count = movies.filter(is_nominee=True).count()
     return render(request, "movies/index.html", {"movies": movies, "nominee_count": nominee_count})
 
